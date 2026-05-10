@@ -31,6 +31,7 @@ const CyberLogo = () => (
 
 export default function Home() {
   const [expandedFaq, setExpandedFaq] = useState<number | null>(0);
+  const [downloadOpen, setDownloadOpen] = useState(false);
 
   return (
     <div className="min-h-screen bg-background text-foreground" style={{ fontFamily: "'Outfit', sans-serif" }}>
@@ -49,9 +50,33 @@ export default function Home() {
               FAQ
             </a>
           </div>
-          <Button className="bg-accent text-primary-foreground hover:bg-accent/90 border border-accent font-medium text-sm">
-            DOWNLOAD
-          </Button>
+          <div className="relative">
+            <button
+              onClick={() => setDownloadOpen(!downloadOpen)}
+              className="bg-accent text-primary-foreground hover:bg-accent/90 border border-accent font-medium text-sm px-4 py-2 rounded flex items-center gap-2 transition-colors"
+            >
+              DOWNLOAD
+              <ChevronDown size={16} className={`transition-transform ${downloadOpen ? 'rotate-180' : ''}`} />
+            </button>
+            {downloadOpen && (
+              <div className="absolute right-0 mt-2 w-48 bg-background border border-border rounded shadow-lg z-50">
+                <a
+                  href="#play-store"
+                  className="block px-4 py-3 hover:bg-muted transition-colors text-sm font-medium border-b border-border"
+                  onClick={() => setDownloadOpen(false)}
+                >
+                  Get on Play Store
+                </a>
+                <a
+                  href="#windows-download"
+                  className="block px-4 py-3 hover:bg-muted transition-colors text-sm font-medium"
+                  onClick={() => setDownloadOpen(false)}
+                >
+                  Download for Windows
+                </a>
+              </div>
+            )}
+          </div>
         </div>
       </nav>
 
@@ -65,7 +90,7 @@ export default function Home() {
                 Fast, Secure & Free VPN
               </h1>
               <p className="text-2xl md:text-3xl text-accent font-semibold">
-                No Limits, No Tracking
+                No Logs, No Tracking
               </p>
               <div className="w-16 h-1 bg-accent mx-auto"></div>
             </div>
