@@ -14,6 +14,18 @@
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@600;700;800&family=Outfit:wght@400;500;600;700&display=swap" rel="stylesheet" />
+    
+    <!-- SPA Routing: Handle client-side routing for GitHub Pages and similar hosts -->
+    <script type="text/javascript">
+      (function() {
+        // Check if we have a redirect from 404.html
+        var redirect = sessionStorage.redirect;
+        delete sessionStorage.redirect;
+        if (redirect && redirect !== location.href) {
+          history.replaceState(null, null, redirect);
+        }
+      })();
+    </script>
     <script type="module" crossorigin src="/assets/index-CgB7oXZC.js"></script>
     <link rel="stylesheet" crossorigin href="/assets/index-B8FZ6R1v.css">
   </head>
