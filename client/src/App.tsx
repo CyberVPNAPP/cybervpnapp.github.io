@@ -5,12 +5,16 @@ import { Route, Switch } from "wouter";
 import ErrorBoundary from "./components/ErrorBoundary";
 import { ThemeProvider } from "./contexts/ThemeContext";
 import Home from "./pages/Home";
+import PrivacyPolicy from "./pages/PrivacyPolicy";
+import Terms from "./pages/Terms";
 
 
 function Router() {
   return (
     <Switch>
       <Route path={"/"} component={Home} />
+      <Route path={"/privacy"} component={PrivacyPolicy} />
+      <Route path={"/terms"} component={Terms} />
       <Route path={"/404"} component={NotFound} />
       {/* Final fallback route */}
       <Route component={NotFound} />
@@ -19,15 +23,15 @@ function Router() {
 }
 
 // NOTE: About Theme
-// - CyberVPN uses a dark-first Cyber-Noir Minimalism design
-// - Default theme is "dark" with yellow (#FFD700) accents on near-black (#0A0E27) background
-// - Color palette defined in index.css with OKLCH values for consistency
+// - CyberVPN uses a bright theme with white background and yellow accents
+// - Default theme is "light" with yellow (#FFD700) buttons and accents
+// - Color palette defined in index.css
 
 function App() {
   return (
     <ErrorBoundary>
       <ThemeProvider
-        defaultTheme="dark"
+        defaultTheme="light"
         // switchable
       >
         <TooltipProvider>

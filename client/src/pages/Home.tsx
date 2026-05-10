@@ -3,40 +3,53 @@ import { ChevronDown, Globe, Lock, Zap, Users, Shield, Smartphone, Download, Che
 import { useState } from "react";
 
 /**
- * CyberVPN Landing Page
- * Design: Cyber-Noir Minimalism
- * - Dark background (#0A0E27) with yellow accents (#FFD700)
- * - Sharp geometric shapes, no rounded corners
- * - Monospace typography for technical credibility
- * - Diagonal dividers and asymmetrical layout
+ * CyberVPN Landing Page - Modern Theme
+ * Design: Clean white background with yellow accents
+ * - Circular yellow logo with "C" letter
+ * - Modern fonts: Poppins for headlines, Outfit for body
+ * - Yellow buttons and accents
  */
+
+const CyberLogo = () => (
+  <svg width="40" height="40" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+    {/* Outer circle */}
+    <circle cx="50" cy="50" r="48" fill="#FFD700" />
+    {/* Letter C */}
+    <text
+      x="50"
+      y="65"
+      fontSize="60"
+      fontWeight="bold"
+      textAnchor="middle"
+      fill="#1A1A1A"
+      fontFamily="Arial, sans-serif"
+    >
+      C
+    </text>
+  </svg>
+);
 
 export default function Home() {
   const [expandedFaq, setExpandedFaq] = useState<number | null>(0);
 
   return (
-    <div className="min-h-screen bg-background text-foreground dark">
+    <div className="min-h-screen bg-background text-foreground" style={{ fontFamily: "'Outfit', sans-serif" }}>
       {/* Navigation */}
       <nav className="border-b border-border sticky top-0 z-50 bg-background/95 backdrop-blur">
         <div className="container flex items-center justify-between h-16">
-          <div className="flex items-center gap-2">
-            <div className="w-8 h-8 bg-primary flex items-center justify-center font-mono font-bold text-primary-foreground">
-              C
-            </div>
-            <span className="font-mono font-bold text-lg">CYBERVPN</span>
+          <div className="flex items-center gap-3">
+            <CyberLogo />
+            <span style={{ fontFamily: "'Poppins', sans-serif" }} className="font-bold text-xl">Cyber</span>
           </div>
           <div className="hidden md:flex items-center gap-8">
-            <a href="#features" className="text-sm hover:text-primary transition-colors">
+            <a href="#features" className="text-sm hover:text-accent transition-colors font-medium">
               FEATURES
             </a>
-            <a href="#pricing" className="text-sm hover:text-primary transition-colors">
-              PRICING
-            </a>
-            <a href="#faq" className="text-sm hover:text-primary transition-colors">
+            <a href="#faq" className="text-sm hover:text-accent transition-colors font-medium">
               FAQ
             </a>
           </div>
-          <Button className="bg-primary text-primary-foreground hover:bg-primary/90 border border-primary font-mono text-sm">
+          <Button className="bg-accent text-primary-foreground hover:bg-accent/90 border border-accent font-medium text-sm">
             DOWNLOAD
           </Button>
         </div>
@@ -44,44 +57,31 @@ export default function Home() {
 
       {/* Hero Section */}
       <section className="relative overflow-hidden">
-        <div className="container grid md:grid-cols-2 gap-12 py-24 items-center">
-          {/* Left: Text */}
-          <div className="space-y-6">
-            <div className="space-y-2">
-              <h1 className="text-5xl md:text-6xl font-mono font-bold leading-tight">
-                ENCRYPTED.
-                <br />
-                SECURE.
-                <br />
-                PRIVATE.
+        <div className="container py-32 items-center">
+          {/* Main Content - Centered */}
+          <div className="space-y-8 text-center max-w-3xl mx-auto">
+            <div className="space-y-4">
+              <h1 style={{ fontFamily: "'Poppins', sans-serif" }} className="text-5xl md:text-7xl font-bold leading-tight">
+                Fast, Secure & Free VPN
               </h1>
-              <div className="w-12 h-1 bg-primary"></div>
+              <p className="text-2xl md:text-3xl text-accent font-semibold">
+                No Limits, No Tracking
+              </p>
+              <div className="w-16 h-1 bg-accent mx-auto"></div>
             </div>
-            <p className="text-lg text-muted-foreground max-w-md">
-              Your online privacy matters. CyberVPN provides military-grade encryption and global access with zero logs.
+            
+            <p className="text-lg text-muted-foreground max-w-2xl mx-auto leading-relaxed">
+              Your online privacy matters. Cyber VPN protects you with military-grade WireGuard encryption, zero logs, and lightning-fast Singapore servers — completely free. Browse safely, stay anonymous, and connect in one tap.
             </p>
-            <div className="flex flex-col sm:flex-row gap-4 pt-4">
-              <Button className="bg-primary text-primary-foreground hover:bg-primary/90 border border-primary font-mono px-8 py-6 text-base">
+            
+            <div className="flex flex-col sm:flex-row gap-4 justify-center pt-4">
+              <Button className="bg-accent text-primary-foreground hover:bg-accent/90 border border-accent font-semibold px-8 py-6 text-base">
                 GET ON PLAY STORE
               </Button>
-              <Button variant="outline" className="border-primary text-primary hover:bg-primary/10 font-mono px-8 py-6 text-base">
-                LEARN MORE
+              <Button className="bg-accent text-primary-foreground hover:bg-accent/90 border border-accent font-semibold px-8 py-6 text-base">
+                GET ON WINDOWS
               </Button>
             </div>
-            <div className="pt-4 space-y-2 text-sm font-mono text-muted-foreground">
-              <div>✓ 50+ Countries</div>
-              <div>✓ No-Log Policy</div>
-              <div>✓ Lightning Fast</div>
-            </div>
-          </div>
-
-          {/* Right: Hero Image */}
-          <div className="relative">
-            <img
-              src="https://d2xsxph8kpxj0f.cloudfront.net/310519663646168487/VwZ9GyNrgWuynVJ4WXKoct/cybervpn-hero-1-iTsJBGxEa4fdFYA9qcqTLt.webp"
-              alt="CyberVPN Hero"
-              className="w-full h-auto"
-            />
           </div>
         </div>
 
@@ -95,74 +95,74 @@ export default function Home() {
       <section id="features" className="relative py-24 bg-card">
         <div className="container">
           <div className="text-center mb-16">
-            <h2 className="text-4xl md:text-5xl font-mono font-bold mb-4">WHY CYBERVPN?</h2>
-            <div className="w-16 h-1 bg-primary mx-auto"></div>
+            <h2 style={{ fontFamily: "'Poppins', sans-serif" }} className="text-4xl md:text-5xl font-bold mb-4">WHY CYBERVPN?</h2>
+            <div className="w-16 h-1 bg-accent mx-auto"></div>
           </div>
 
           <div className="grid md:grid-cols-3 gap-8">
             {/* Feature 1 */}
-            <div className="border border-border p-8 hover:border-primary transition-colors group">
-              <div className="w-12 h-12 border-2 border-primary flex items-center justify-center mb-6 group-hover:bg-primary/10 transition-colors">
-                <Lock className="w-6 h-6 text-primary" />
+            <div className="border border-border p-8 hover:border-accent transition-colors group">
+              <div className="w-12 h-12 border-2 border-accent flex items-center justify-center mb-6 group-hover:bg-accent/10 transition-colors">
+                <Lock className="w-6 h-6 text-accent" />
               </div>
-              <h3 className="font-mono font-bold text-lg mb-3">MILITARY ENCRYPTION</h3>
+              <h3 style={{ fontFamily: "'Poppins', sans-serif" }} className="font-bold text-lg mb-3">MILITARY ENCRYPTION</h3>
               <p className="text-muted-foreground">
-                AES-256 encryption keeps your data safe from prying eyes. Bank-level security for your digital life.
+                WireGuard protocol keeps your connection encrypted and secure. Your data stays private — always.
               </p>
             </div>
 
             {/* Feature 2 */}
-            <div className="border border-border p-8 hover:border-primary transition-colors group">
-              <div className="w-12 h-12 border-2 border-primary flex items-center justify-center mb-6 group-hover:bg-primary/10 transition-colors">
-                <Globe className="w-6 h-6 text-primary" />
+            <div className="border border-border p-8 hover:border-accent transition-colors group">
+              <div className="w-12 h-12 border-2 border-accent flex items-center justify-center mb-6 group-hover:bg-accent/10 transition-colors">
+                <Globe className="w-6 h-6 text-accent" />
               </div>
-              <h3 className="font-mono font-bold text-lg mb-3">GLOBAL COVERAGE</h3>
+              <h3 style={{ fontFamily: "'Poppins', sans-serif" }} className="font-bold text-lg mb-3">SINGAPORE SERVER</h3>
               <p className="text-muted-foreground">
-                Connect to 50+ countries with optimized servers. Access content from anywhere, anytime.
+                Optimized Singapore server with ultra-low latency. Perfect for Southeast Asia users — Malaysia, Myanmar, Thailand and more.
               </p>
             </div>
 
             {/* Feature 3 */}
-            <div className="border border-border p-8 hover:border-primary transition-colors group">
-              <div className="w-12 h-12 border-2 border-primary flex items-center justify-center mb-6 group-hover:bg-primary/10 transition-colors">
-                <Zap className="w-6 h-6 text-primary" />
+            <div className="border border-border p-8 hover:border-accent transition-colors group">
+              <div className="w-12 h-12 border-2 border-accent flex items-center justify-center mb-6 group-hover:bg-accent/10 transition-colors">
+                <Zap className="w-6 h-6 text-accent" />
               </div>
-              <h3 className="font-mono font-bold text-lg mb-3">LIGHTNING FAST</h3>
+              <h3 style={{ fontFamily: "'Poppins', sans-serif" }} className="font-bold text-lg mb-3">LIGHTNING FAST</h3>
               <p className="text-muted-foreground">
-                Optimized for speed. Stream, browse, and download without lag or buffering.
+                WireGuard — the fastest VPN protocol available. Browse, stream, and game without slowdowns.
               </p>
             </div>
 
             {/* Feature 4 */}
-            <div className="border border-border p-8 hover:border-primary transition-colors group">
-              <div className="w-12 h-12 border-2 border-primary flex items-center justify-center mb-6 group-hover:bg-primary/10 transition-colors">
-                <Shield className="w-6 h-6 text-primary" />
+            <div className="border border-border p-8 hover:border-accent transition-colors group">
+              <div className="w-12 h-12 border-2 border-accent flex items-center justify-center mb-6 group-hover:bg-accent/10 transition-colors">
+                <Shield className="w-6 h-6 text-accent" />
               </div>
-              <h3 className="font-mono font-bold text-lg mb-3">ZERO LOGS</h3>
+              <h3 style={{ fontFamily: "'Poppins', sans-serif" }} className="font-bold text-lg mb-3">ZERO LOGS</h3>
               <p className="text-muted-foreground">
-                We never track your activity. Your privacy is our priority. Period.
+                We never store your activity, connection logs, or personal data. What you do online stays yours. Period.
               </p>
             </div>
 
             {/* Feature 5 */}
-            <div className="border border-border p-8 hover:border-primary transition-colors group">
-              <div className="w-12 h-12 border-2 border-primary flex items-center justify-center mb-6 group-hover:bg-primary/10 transition-colors">
-                <Smartphone className="w-6 h-6 text-primary" />
+            <div className="border border-border p-8 hover:border-accent transition-colors group">
+              <div className="w-12 h-12 border-2 border-accent flex items-center justify-center mb-6 group-hover:bg-accent/10 transition-colors">
+                <Smartphone className="w-6 h-6 text-accent" />
               </div>
-              <h3 className="font-mono font-bold text-lg mb-3">ONE-TAP CONNECT</h3>
+              <h3 style={{ fontFamily: "'Poppins', sans-serif" }} className="font-bold text-lg mb-3">ONE-TAP CONNECT</h3>
               <p className="text-muted-foreground">
-                Simple, intuitive interface. Connect in one tap. No technical knowledge required.
+                Open the app, tap connect. Done. No complicated setup, no technical knowledge needed.
               </p>
             </div>
 
             {/* Feature 6 */}
-            <div className="border border-border p-8 hover:border-primary transition-colors group">
-              <div className="w-12 h-12 border-2 border-primary flex items-center justify-center mb-6 group-hover:bg-primary/10 transition-colors">
-                <Users className="w-6 h-6 text-primary" />
+            <div className="border border-border p-8 hover:border-accent transition-colors group">
+              <div className="w-12 h-12 border-2 border-accent flex items-center justify-center mb-6 group-hover:bg-accent/10 transition-colors">
+                <Users className="w-6 h-6 text-accent" />
               </div>
-              <h3 className="font-mono font-bold text-lg mb-3">MULTI-DEVICE</h3>
+              <h3 style={{ fontFamily: "'Poppins', sans-serif" }} className="font-bold text-lg mb-3">FREE TO USE</h3>
               <p className="text-muted-foreground">
-                Protect all your devices with one account. Android, iOS, Windows, and Mac.
+                No credit card. No signup required for guest access. Download and connect instantly — completely free.
               </p>
             </div>
           </div>
@@ -174,123 +174,39 @@ export default function Home() {
         }}></div>
       </section>
 
-      {/* Pricing Section */}
-      <section id="pricing" className="py-24 bg-background">
-        <div className="container">
-          <div className="text-center mb-16">
-            <h2 className="text-4xl md:text-5xl font-mono font-bold mb-4">SIMPLE PRICING</h2>
-            <div className="w-16 h-1 bg-primary mx-auto"></div>
-          </div>
-
-          <div className="grid md:grid-cols-3 gap-8 max-w-4xl mx-auto">
-            {/* Free Plan */}
-            <div className="border border-border p-8">
-              <h3 className="font-mono font-bold text-xl mb-2">FREE</h3>
-              <div className="text-3xl font-mono font-bold mb-6">$0<span className="text-lg text-muted-foreground">/mo</span></div>
-              <ul className="space-y-3 mb-8">
-                <li className="flex items-center gap-2 text-sm">
-                  <Check className="w-4 h-4 text-primary" />
-                  <span>1 Device</span>
-                </li>
-                <li className="flex items-center gap-2 text-sm">
-                  <Check className="w-4 h-4 text-primary" />
-                  <span>5 Countries</span>
-                </li>
-                <li className="flex items-center gap-2 text-sm">
-                  <X className="w-4 h-4 text-muted-foreground" />
-                  <span className="text-muted-foreground">Priority Support</span>
-                </li>
-              </ul>
-              <Button variant="outline" className="w-full border-border text-foreground hover:bg-card font-mono">
-                GET STARTED
-              </Button>
-            </div>
-
-            {/* Pro Plan (Highlighted) */}
-            <div className="border-2 border-primary p-8 relative">
-              <div className="absolute -top-4 left-4 bg-primary text-primary-foreground px-3 py-1 font-mono text-xs font-bold">
-                RECOMMENDED
-              </div>
-              <h3 className="font-mono font-bold text-xl mb-2">PRO</h3>
-              <div className="text-3xl font-mono font-bold mb-6">$4.99<span className="text-lg text-muted-foreground">/mo</span></div>
-              <ul className="space-y-3 mb-8">
-                <li className="flex items-center gap-2 text-sm">
-                  <Check className="w-4 h-4 text-primary" />
-                  <span>5 Devices</span>
-                </li>
-                <li className="flex items-center gap-2 text-sm">
-                  <Check className="w-4 h-4 text-primary" />
-                  <span>50+ Countries</span>
-                </li>
-                <li className="flex items-center gap-2 text-sm">
-                  <Check className="w-4 h-4 text-primary" />
-                  <span>Priority Support</span>
-                </li>
-              </ul>
-              <Button className="w-full bg-primary text-primary-foreground hover:bg-primary/90 border border-primary font-mono">
-                SUBSCRIBE NOW
-              </Button>
-            </div>
-
-            {/* Premium Plan */}
-            <div className="border border-border p-8">
-              <h3 className="font-mono font-bold text-xl mb-2">PREMIUM</h3>
-              <div className="text-3xl font-mono font-bold mb-6">$9.99<span className="text-lg text-muted-foreground">/mo</span></div>
-              <ul className="space-y-3 mb-8">
-                <li className="flex items-center gap-2 text-sm">
-                  <Check className="w-4 h-4 text-primary" />
-                  <span>Unlimited Devices</span>
-                </li>
-                <li className="flex items-center gap-2 text-sm">
-                  <Check className="w-4 h-4 text-primary" />
-                  <span>50+ Countries</span>
-                </li>
-                <li className="flex items-center gap-2 text-sm">
-                  <Check className="w-4 h-4 text-primary" />
-                  <span>24/7 Support</span>
-                </li>
-              </ul>
-              <Button variant="outline" className="w-full border-border text-foreground hover:bg-card font-mono">
-                SUBSCRIBE NOW
-              </Button>
-            </div>
-          </div>
-        </div>
-      </section>
-
       {/* FAQ Section */}
       <section id="faq" className="py-24 bg-card">
         <div className="container max-w-3xl">
           <div className="text-center mb-16">
-            <h2 className="text-4xl md:text-5xl font-mono font-bold mb-4">FREQUENTLY ASKED</h2>
-            <div className="w-16 h-1 bg-primary mx-auto"></div>
+            <h2 style={{ fontFamily: "'Poppins', sans-serif" }} className="text-4xl md:text-5xl font-bold mb-4">FREQUENTLY ASKED</h2>
+            <div className="w-16 h-1 bg-accent mx-auto"></div>
           </div>
 
           <div className="space-y-4">
             {[
               {
                 q: "Is CyberVPN really free?",
-                a: "Yes! CyberVPN offers a free plan with limited features. Upgrade to Pro or Premium for unlimited access to all servers and features."
+                a: "Yes! CyberVPN is completely free to download and use. No hidden fees, no credit card required. Just download, connect, and enjoy."
               },
               {
                 q: "Do you log my activity?",
-                a: "Absolutely not. We have a strict zero-log policy. Your activity is never recorded, stored, or shared with anyone."
+                a: "Absolutely not. We have a strict zero-log policy. Your activity, connection logs, and personal data are never recorded, stored, or shared with anyone."
               },
               {
-                q: "How many devices can I connect?",
-                a: "Free plan: 1 device. Pro plan: 5 devices. Premium plan: Unlimited devices. All on one account."
+                q: "Which servers are available?",
+                a: "We offer optimized Singapore servers with ultra-low latency, perfect for Southeast Asia users in Malaysia, Myanmar, Thailand, and surrounding regions."
               },
               {
                 q: "Will it slow down my internet?",
-                a: "CyberVPN is optimized for speed. You may notice minimal impact, but most users report no noticeable slowdown."
+                a: "No. WireGuard is the fastest VPN protocol available. Most users experience no noticeable slowdown — you can browse, stream, and game smoothly."
               },
               {
                 q: "Is it safe to use?",
-                a: "Yes. We use military-grade AES-256 encryption, trusted by governments and security experts worldwide."
+                a: "Yes. We use military-grade WireGuard encryption, trusted by security experts worldwide. Your connection is always secure and private."
               },
               {
-                q: "Can I use CyberVPN on multiple devices?",
-                a: "Yes! Your subscription covers multiple devices depending on your plan. Download the app on any device and log in."
+                q: "How do I get started?",
+                a: "Download CyberVPN from the Play Store or Windows store, open the app, and tap connect. That's it — no setup required, completely free."
               }
             ].map((item, idx) => (
               <div key={idx} className="border border-border">
@@ -298,9 +214,9 @@ export default function Home() {
                   onClick={() => setExpandedFaq(expandedFaq === idx ? null : idx)}
                   className="w-full p-6 flex items-center justify-between hover:bg-background/50 transition-colors text-left"
                 >
-                  <h3 className="font-mono font-bold">{item.q}</h3>
+                  <h3 style={{ fontFamily: "'Poppins', sans-serif" }} className="font-bold">{item.q}</h3>
                   <ChevronDown
-                    className={`w-5 h-5 text-primary transition-transform ${
+                    className={`w-5 h-5 text-accent transition-transform ${
                       expandedFaq === idx ? "rotate-180" : ""
                     }`}
                   />
@@ -318,21 +234,19 @@ export default function Home() {
 
       {/* CTA Section */}
       <section className="py-24 bg-background relative overflow-hidden">
-        <div className="absolute inset-0 opacity-10">
-          <img
-            src="https://d2xsxph8kpxj0f.cloudfront.net/310519663646168487/VwZ9GyNrgWuynVJ4WXKoct/cybervpn-hero-3-Gkioevo9BKQzcPGxrkCDQi.webp"
-            alt="Background"
-            className="w-full h-full object-cover"
-          />
-        </div>
         <div className="container relative z-10 text-center">
-          <h2 className="text-4xl md:text-5xl font-mono font-bold mb-6">READY TO SECURE YOUR PRIVACY?</h2>
+          <h2 style={{ fontFamily: "'Poppins', sans-serif" }} className="text-4xl md:text-5xl font-bold mb-6">READY TO SECURE YOUR PRIVACY?</h2>
           <p className="text-lg text-muted-foreground mb-8 max-w-2xl mx-auto">
-            Join thousands of users who trust CyberVPN for their online security and privacy.
+            Join thousands of users who trust CyberVPN for their online security and privacy. Download now — it's completely free.
           </p>
-          <Button className="bg-primary text-primary-foreground hover:bg-primary/90 border border-primary font-mono px-12 py-6 text-lg">
-            DOWNLOAD ON PLAY STORE
-          </Button>
+          <div className="flex flex-col sm:flex-row gap-4 justify-center">
+            <Button className="bg-accent text-primary-foreground hover:bg-accent/90 border border-accent font-semibold px-12 py-6 text-lg">
+              GET ON PLAY STORE
+            </Button>
+            <Button className="bg-accent text-primary-foreground hover:bg-accent/90 border border-accent font-semibold px-12 py-6 text-lg">
+              GET ON WINDOWS
+            </Button>
+          </div>
         </div>
       </section>
 
@@ -342,35 +256,30 @@ export default function Home() {
           <div className="grid md:grid-cols-4 gap-8 mb-12">
             <div>
               <div className="flex items-center gap-2 mb-4">
-                <div className="w-8 h-8 bg-primary flex items-center justify-center font-mono font-bold text-primary-foreground">
-                  C
-                </div>
-                <span className="font-mono font-bold">CYBERVPN</span>
+                <CyberLogo />
+                <span style={{ fontFamily: "'Poppins', sans-serif" }} className="font-bold">Cyber</span>
               </div>
-              <p className="text-sm text-muted-foreground">Your privacy, our priority.</p>
             </div>
             <div>
-              <h4 className="font-mono font-bold mb-4">PRODUCT</h4>
+              <h4 style={{ fontFamily: "'Poppins', sans-serif" }} className="font-bold mb-4">PRODUCT</h4>
               <ul className="space-y-2 text-sm text-muted-foreground">
-                <li><a href="#" className="hover:text-primary transition-colors">Features</a></li>
-                <li><a href="#" className="hover:text-primary transition-colors">Pricing</a></li>
-                <li><a href="#" className="hover:text-primary transition-colors">Download</a></li>
+                <li><a href="#features" className="hover:text-accent transition-colors">Features</a></li>
+                <li><a href="#" className="hover:text-accent transition-colors">Download</a></li>
+                <li><a href="#faq" className="hover:text-accent transition-colors">FAQ</a></li>
               </ul>
             </div>
             <div>
-              <h4 className="font-mono font-bold mb-4">COMPANY</h4>
+              <h4 style={{ fontFamily: "'Poppins', sans-serif" }} className="font-bold mb-4">COMPANY</h4>
               <ul className="space-y-2 text-sm text-muted-foreground">
-                <li><a href="#" className="hover:text-primary transition-colors">About</a></li>
-                <li><a href="#" className="hover:text-primary transition-colors">Blog</a></li>
-                <li><a href="#" className="hover:text-primary transition-colors">Contact</a></li>
+                <li><a href="#" className="hover:text-accent transition-colors">About</a></li>
+                <li><a href="mailto:cybervpnapp@gmail.com" className="hover:text-accent transition-colors">Contact</a></li>
               </ul>
             </div>
             <div>
-              <h4 className="font-mono font-bold mb-4">LEGAL</h4>
+              <h4 style={{ fontFamily: "'Poppins', sans-serif" }} className="font-bold mb-4">LEGAL</h4>
               <ul className="space-y-2 text-sm text-muted-foreground">
-                <li><a href="#" className="hover:text-primary transition-colors">Privacy</a></li>
-                <li><a href="#" className="hover:text-primary transition-colors">Terms</a></li>
-                <li><a href="#" className="hover:text-primary transition-colors">Security</a></li>
+                <li><a href="/privacy" className="hover:text-accent transition-colors">Privacy Policy</a></li>
+                <li><a href="/terms" className="hover:text-accent transition-colors">Terms</a></li>
               </ul>
             </div>
           </div>
