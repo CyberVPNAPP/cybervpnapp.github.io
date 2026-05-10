@@ -19,15 +19,15 @@ function Router() {
 }
 
 // NOTE: About Theme
-// - First choose a default theme according to your design style (dark or light bg), than change color palette in index.css
-//   to keep consistent foreground/background color across components
-// - If you want to make theme switchable, pass `switchable` ThemeProvider and use `useTheme` hook
+// - CyberVPN uses a dark-first Cyber-Noir Minimalism design
+// - Default theme is "dark" with yellow (#FFD700) accents on near-black (#0A0E27) background
+// - Color palette defined in index.css with OKLCH values for consistency
 
 function App() {
   return (
     <ErrorBoundary>
       <ThemeProvider
-        defaultTheme="light"
+        defaultTheme="dark"
         // switchable
       >
         <TooltipProvider>
