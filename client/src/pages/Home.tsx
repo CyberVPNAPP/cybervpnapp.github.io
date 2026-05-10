@@ -257,7 +257,7 @@ export default function Home() {
             <div>
               <div className="flex items-center gap-2 mb-4">
                 <CyberLogo />
-                <span style={{ fontFamily: "'Poppins', sans-serif" }} className="font-bold">Cyber</span>
+                <span style={{ fontFamily: "'Poppins', sans-serif" }} className="font-bold">Cyber.</span>
               </div>
             </div>
             <div>
@@ -283,8 +283,8 @@ export default function Home() {
               </ul>
             </div>
           </div>
-          <div className="border-t border-border pt-8 text-center text-sm text-muted-foreground">
-            <p>&copy; 2026 CyberVPN. All rights reserved. Your privacy is our mission.</p>
+            <div className="border-t border-border pt-8 text-center text-sm text-muted-foreground">
+            <p>&copy; 2026 Cyber. All rights reserved. Your privacy is our mission.</p>
           </div>
         </div>
       </footer>

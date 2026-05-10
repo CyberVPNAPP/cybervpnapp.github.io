@@ -5,7 +5,7 @@ export default function PrivacyPolicy() {
       <nav className="border-b border-border sticky top-0 z-50 bg-background/95 backdrop-blur">
         <div className="container flex items-center justify-between h-16">
           <a href="/" className="flex items-center gap-2 hover:opacity-80 transition-opacity">
-            <span style={{ fontFamily: "'Poppins', sans-serif" }} className="font-bold text-xl">Cyber</span>
+            <span style={{ fontFamily: "'Poppins', sans-serif" }} className="font-bold text-xl">Cyber.</span>
           </a>
           <a href="/" className="text-sm hover:text-accent transition-colors font-medium">
             ← Back to Home
@@ -16,7 +16,7 @@ export default function PrivacyPolicy() {
       {/* Content */}
       <div className="container max-w-3xl py-16">
         <h1 style={{ fontFamily: "'Poppins', sans-serif" }} className="text-4xl font-bold mb-2">Privacy Policy</h1>
-        <p className="text-muted-foreground mb-8">Cyber VPN — Last updated: May 2026</p>
+        <p className="text-muted-foreground mb-8">Cyber. — Last updated: May 2026</p>
 
         <div className="space-y-8 prose prose-sm max-w-none">
           <section>
