@@ -39,7 +39,7 @@ export default function Home() {
         <div className="container flex items-center justify-between h-16">
           <div className="flex items-center gap-3">
             <CyberLogo />
-            <span style={{ fontFamily: "'Poppins', sans-serif" }} className="font-bold text-xl">Cyber</span>
+            <span style={{ fontFamily: "'Poppins', sans-serif" }} className="font-bold text-xl">Cyber.</span>
           </div>
           <div className="hidden md:flex items-center gap-8">
             <a href="#features" className="text-sm hover:text-accent transition-colors font-medium">
