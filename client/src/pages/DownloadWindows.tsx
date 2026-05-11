@@ -4,7 +4,7 @@ import { useLocation } from "wouter";
 
 /**
  * Windows Download Page - Simplified
- * File info + What You Get + Auto-download button
+ * File info + Download button + What You Get
  */
 
 export default function DownloadWindows() {
@@ -63,6 +63,7 @@ export default function DownloadWindows() {
 
           {/* File Information Card */}
           <div className="border border-border rounded-lg p-8 space-y-6">
+            {/* File Information */}
             <div className="space-y-4">
               <h2 style={{ fontFamily: "'Poppins', sans-serif" }} className="text-2xl font-bold">
                 File Information
@@ -84,7 +85,22 @@ export default function DownloadWindows() {
               </div>
             </div>
 
-            {/* Features */}
+            {/* Download Button - MOVED UP */}
+            <div className="pt-2">
+              <button
+                onClick={handleDownload}
+                disabled={downloading}
+                className="w-full bg-accent text-primary-foreground hover:bg-accent/90 disabled:opacity-50 font-bold text-lg px-6 py-4 rounded flex items-center justify-center gap-2 transition-colors"
+              >
+                <Download size={24} />
+                {downloading ? "Downloading..." : "Download Now"}
+              </button>
+              <p className="text-sm text-muted-foreground text-center mt-3">
+                The installer will guide you through the setup process
+              </p>
+            </div>
+
+            {/* Features - MOVED DOWN */}
             <div className="space-y-4 pt-4 border-t border-border">
               <h3 style={{ fontFamily: "'Poppins', sans-serif" }} className="font-bold">
                 What You Get:
@@ -103,21 +119,6 @@ export default function DownloadWindows() {
                   <span>Zero logs, completely free</span>
                 </div>
               </div>
-            </div>
-
-            {/* Download Button */}
-            <div className="pt-6">
-              <button
-                onClick={handleDownload}
-                disabled={downloading}
-                className="w-full bg-accent text-primary-foreground hover:bg-accent/90 disabled:opacity-50 font-bold text-lg px-6 py-4 rounded flex items-center justify-center gap-2 transition-colors"
-              >
-                <Download size={24} />
-                {downloading ? "Downloading..." : "Download Now"}
-              </button>
-              <p className="text-sm text-muted-foreground text-center mt-3">
-                The installer will guide you through the setup process
-              </p>
             </div>
           </div>
         </div>
