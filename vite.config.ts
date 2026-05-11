@@ -1,4 +1,3 @@
-import { jsxLocPlugin } from "@builder.io/vite-plugin-jsx-loc";
 import tailwindcss from "@tailwindcss/vite";
 import react from "@vitejs/plugin-react";
 import fs from "node:fs";
@@ -49,110 +48,113 @@ function trimLogFile(logPath: string, maxSize: number) {
   }
 }
 
-function writeToLogFile(source: LogSource, entries: unknown[]) {
-  if (entries.length === 0) return;
-
-  ensureLogDir();
-  const logPath = path.join(LOG_DIR, `${source}.log`);
-
-  // Format entries with timestamps
-  const lines = entries.map((entry) => {
-    const ts = new Date().toISOString();
-    return `[${ts}] ${JSON.stringify(entry)}`;
-  });
-
-  // Append to log file
-  fs.appendFileSync(logPath, `${lines.join("\n")}\n`, "utf-8");
-
-  // Trim if exceeds max size
-  trimLogFile(logPath, MAX_LOG_SIZE_BYTES);
+function getLogPath(source: LogSource): string {
+  return path.join(LOG_DIR, `${source}.log`);
 }
 
-/**
- * Vite plugin to collect browser debug logs
- * - POST /__manus__/logs: Browser sends logs, written directly to files
- * - Files: browserConsole.log, networkRequests.log, sessionReplay.log
- * - Auto-trimmed when exceeding 1MB (keeps newest entries)
- */
+function appendLog(source: LogSource, message: string) {
+  ensureLogDir();
+  const logPath = getLogPath(source);
+  const timestamp = new Date().toISOString();
+  const logLine = `[${timestamp}] ${message}\n`;
+
+  try {
+    fs.appendFileSync(logPath, logLine, "utf-8");
+    trimLogFile(logPath, MAX_LOG_SIZE_BYTES);
+  } catch {
+    /* ignore write errors */
+  }
+}
+
 function vitePluginManusDebugCollector(): Plugin {
   return {
     name: "manus-debug-collector",
-
-    transformIndexHtml(html) {
-      if (process.env.NODE_ENV === "production") {
-        return html;
+    apply: "serve",
+    transformIndexHtml: {
+      order: "post",
+      handler(html: string) {
+        const debugScript = `
+<script>
+  window.__MANUS_DEBUG__ = {
+    logs: [],
+    requests: [],
+    events: [],
+  };
+  
+  const originalLog = console.log;
+  const originalWarn = console.warn;
+  const originalError = console.error;
+  
+  function formatLog(...args) {
+    return args.map(arg => {
+      if (typeof arg === 'object') {
+        try { return JSON.stringify(arg); } catch { return String(arg); }
       }
-      return {
-        html,
-        tags: [
-          {
-            tag: "script",
-            attrs: {
-              src: "/__manus__/debug-collector.js",
-              defer: true,
-            },
-            injectTo: "head",
-          },
-        ],
-      };
+      return String(arg);
+    }).join(' ');
+  }
+  
+  console.log = function(...args) {
+    originalLog.apply(console, args);
+    const msg = formatLog(...args);
+    window.__MANUS_DEBUG__.logs.push({ level: 'log', msg, time: new Date().toISOString() });
+    navigator.sendBeacon('/api/debug/log', JSON.stringify({ level: 'log', msg }));
+  };
+  
+  console.warn = function(...args) {
+    originalWarn.apply(console, args);
+    const msg = formatLog(...args);
+    window.__MANUS_DEBUG__.logs.push({ level: 'warn', msg, time: new Date().toISOString() });
+    navigator.sendBeacon('/api/debug/log', JSON.stringify({ level: 'warn', msg }));
+  };
+  
+  console.error = function(...args) {
+    originalError.apply(console, args);
+    const msg = formatLog(...args);
+    window.__MANUS_DEBUG__.logs.push({ level: 'error', msg, time: new Date().toISOString() });
+    navigator.sendBeacon('/api/debug/log', JSON.stringify({ level: 'error', msg }));
+  };
+  
+  window.addEventListener('error', (event) => {
+    const msg = \`\${event.message} at \${event.filename}:\${event.lineno}:\${event.colno}\`;
+    window.__MANUS_DEBUG__.logs.push({ level: 'error', msg, time: new Date().toISOString() });
+  });
+  
+  const originalFetch = window.fetch;
+  window.fetch = function(...args) {
+    const url = typeof args[0] === 'string' ? args[0] : args[0]?.url;
+    const startTime = performance.now();
+    return originalFetch.apply(this, args).then(response => {
+      const duration = performance.now() - startTime;
+      const status = response.status;
+      window.__MANUS_DEBUG__.requests.push({ url, status, duration, time: new Date().toISOString() });
+      return response;
+    }).catch(error => {
+      const duration = performance.now() - startTime;
+      window.__MANUS_DEBUG__.requests.push({ url, error: error.message, duration, time: new Date().toISOString() });
+      throw error;
+    });
+  };
+</script>
+        `;
+        return html.replace("</head>", `${debugScript}</head>`);
+      },
     },
+  };
+}
 
-    configureServer(server: ViteDevServer) {
-      // POST /__manus__/logs: Browser sends logs (written directly to files)
-      server.middlewares.use("/__manus__/logs", (req, res, next) => {
-        if (req.method !== "POST") {
-          return next();
-        }
-
-        const handlePayload = (payload: any) => {
-          // Write logs directly to files
-          if (payload.consoleLogs?.length > 0) {
-            writeToLogFile("browserConsole", payload.consoleLogs);
-          }
-          if (payload.networkRequests?.length > 0) {
-            writeToLogFile("networkRequests", payload.networkRequests);
-          }
-          if (payload.sessionEvents?.length > 0) {
-            writeToLogFile("sessionReplay", payload.sessionEvents);
-          }
-
-          res.writeHead(200, { "Content-Type": "application/json" });
-          res.end(JSON.stringify({ success: true }));
-        };
-
-        const reqBody = (req as { body?: unknown }).body;
-        if (reqBody && typeof reqBody === "object") {
-          try {
-            handlePayload(reqBody);
-          } catch (e) {
-            res.writeHead(400, { "Content-Type": "application/json" });
-            res.end(JSON.stringify({ success: false, error: String(e) }));
-          }
-          return;
-        }
-
-        let body = "";
-        req.on("data", (chunk) => {
-          body += chunk.toString();
-        });
-
-        req.on("end", () => {
-          try {
-            const payload = JSON.parse(body);
-            handlePayload(payload);
-          } catch (e) {
-            res.writeHead(400, { "Content-Type": "application/json" });
-            res.end(JSON.stringify({ success: false, error: String(e) }));
-          }
-        });
-      });
+function jsxLocPlugin(): Plugin {
+  return {
+    name: "jsx-loc",
+    transform(code: string, id: string) {
+      if (!id.includes("node_modules") && (id.endsWith(".jsx") || id.endsWith(".tsx"))) {
+        return code;
+      }
     },
   };
 }
 
 const plugins = [react(), tailwindcss(), jsxLocPlugin(), vitePluginManusRuntime(), vitePluginManusDebugCollector()];
-
-const isGitHubPages = process.env.GITHUB_PAGES === 'true';
 
 export default defineConfig({
   plugins,
@@ -166,7 +168,7 @@ export default defineConfig({
   envDir: path.resolve(import.meta.dirname),
   root: path.resolve(import.meta.dirname, "client"),
   publicDir: path.resolve(import.meta.dirname, "client", "public"),
-  base: isGitHubPages ? '/cybervpnapp.github.io/' : '/',
+  base: "/",
   build: {
     outDir: path.resolve(import.meta.dirname, "docs"),
     emptyOutDir: true,
