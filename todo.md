@@ -44,6 +44,10 @@
 - [x] Manus full-stack deployment ready
 - [x] Custom domain support (securevpn-vwz9gynr.manus.space)
 
+## Bug Fixes
+- [x] Fixed CORS error on Windows download by implementing Express download handler
+- [x] Download now streams through backend server instead of direct CDN fetch
+
 ## Pending User Input
 - [ ] Provide actual Google Play Store URL (currently using placeholder: com.cybervpn.app)
 - [ ] Provide actual Android app rating and download count (currently using placeholders)

@@ -1,7 +1,6 @@
 import { Download, ArrowLeft, CheckCircle, Shield, Zap } from "lucide-react";
 import { useState } from "react";
 import { useLocation } from "wouter";
-import { trpc } from "@/lib/trpc";
 
 /**
  * Windows Download Page - Simplified
@@ -11,22 +10,28 @@ import { trpc } from "@/lib/trpc";
 export default function DownloadWindows() {
   const [, setLocation] = useLocation();
   const [downloading, setDownloading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
 
-  // Fetch download info from backend proxy
-  const { data: downloadInfo, isLoading } = trpc.download.windows.useQuery({ fileName: "Cyber VPN.exe" });
+  const FILE_NAME = "Cyber VPN.exe";
+  const FILE_SIZE = "61 KB";
 
   const handleDownload = async () => {
-    if (!downloadInfo?.url) return;
-    
     setDownloading(true);
+    setError(null);
     try {
-      const response = await fetch(downloadInfo.url);
+      // Use the Express download endpoint instead of direct CDN fetch
+      const response = await fetch("/api/download/windows");
+      
+      if (!response.ok) {
+        throw new Error(`Download failed with status ${response.status}`);
+      }
+
       const blob = await response.blob();
       
       const blobUrl = window.URL.createObjectURL(blob);
       const link = document.createElement("a");
       link.href = blobUrl;
-      link.download = downloadInfo.fileName;
+      link.download = FILE_NAME;
       document.body.appendChild(link);
       link.click();
       document.body.removeChild(link);
@@ -35,8 +40,10 @@ export default function DownloadWindows() {
       setTimeout(() => {
         setDownloading(false);
       }, 500);
-    } catch (error) {
-      console.error("Download failed:", error);
+    } catch (err) {
+      const errorMsg = err instanceof Error ? err.message : "Download failed";
+      console.error("Download failed:", errorMsg);
+      setError(errorMsg);
       setDownloading(false);
     }
   };
@@ -82,11 +89,11 @@ export default function DownloadWindows() {
               <div className="space-y-3">
                 <div className="flex justify-between items-center pb-3 border-b border-border">
                   <span className="text-muted-foreground">File Name:</span>
-                  <span className="font-medium">{downloadInfo?.fileName || "Cyber VPN.exe"}</span>
+                  <span className="font-medium">{FILE_NAME}</span>
                 </div>
                 <div className="flex justify-between items-center pb-3 border-b border-border">
                   <span className="text-muted-foreground">File Size:</span>
-                  <span className="font-medium">{downloadInfo?.size || "61 KB"}</span>
+                  <span className="font-medium">{FILE_SIZE}</span>
                 </div>
                 <div className="flex justify-between items-center">
                   <span className="text-muted-foreground">Platform:</span>
@@ -95,20 +102,28 @@ export default function DownloadWindows() {
               </div>
             </div>
 
-            {/* Download Button - MOVED UP */}
+            {/* Error Message */}
+            {error && (
+              <div className="p-4 bg-red-50 border border-red-200 rounded text-red-800 text-sm">
+                <p className="font-medium">Download Error</p>
+                <p>{error}</p>
+              </div>
+            )}
+
+            {/* Download Button */}
             <div className="pt-2">
               <button
                 onClick={handleDownload}
-                disabled={downloading || isLoading || !downloadInfo}
+                disabled={downloading}
                 className="w-full bg-accent text-primary-foreground hover:bg-accent/90 disabled:opacity-50 font-bold text-lg px-6 py-4 rounded flex items-center justify-center gap-2 transition-colors"
               >
                 <Download size={24} />
-                {isLoading ? "Loading..." : downloading ? "Downloading..." : "Download Now"}
+                {downloading ? "Downloading..." : "Download Now"}
               </button>
 
             </div>
 
-            {/* Features - MOVED DOWN */}
+            {/* Features */}
             <div className="space-y-4 pt-4 border-t border-border">
               <h3 style={{ fontFamily: "'Poppins', sans-serif" }} className="font-bold">
                 What You Get:
