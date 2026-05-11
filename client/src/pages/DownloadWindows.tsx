@@ -3,13 +3,12 @@ import { useState } from "react";
 import { useLocation } from "wouter";
 
 /**
- * Windows Download Page
- * Displays file information and confirmation dialog before download
+ * Windows Download Page - Simplified
+ * File info + What You Get + Auto-download button
  */
 
 export default function DownloadWindows() {
   const [, setLocation] = useLocation();
-  const [showConfirm, setShowConfirm] = useState(false);
   const [downloading, setDownloading] = useState(false);
 
   const DOWNLOAD_URL = "https://files.manuscdn.com/user_upload_by_module/session_file/310519663646168487/PfEpDyMMhKNdBphm.exe";
@@ -29,7 +28,6 @@ export default function DownloadWindows() {
     // Reset state after a short delay
     setTimeout(() => {
       setDownloading(false);
-      setShowConfirm(false);
     }, 1000);
   };
 
@@ -52,9 +50,9 @@ export default function DownloadWindows() {
 
       {/* Main Content */}
       <section className="container py-20">
-        <div className="max-w-2xl mx-auto space-y-12">
+        <div className="max-w-2xl mx-auto space-y-8">
           {/* Header */}
-          <div className="text-center space-y-4">
+          <div className="text-center space-y-2">
             <h1 style={{ fontFamily: "'Poppins', sans-serif" }} className="text-5xl font-bold">
               Download Cyber VPN
             </h1>
@@ -110,70 +108,20 @@ export default function DownloadWindows() {
             {/* Download Button */}
             <div className="pt-6">
               <button
-                onClick={() => setShowConfirm(true)}
-                className="w-full bg-accent text-primary-foreground hover:bg-accent/90 font-bold text-lg px-6 py-4 rounded flex items-center justify-center gap-2 transition-colors"
+                onClick={handleDownload}
+                disabled={downloading}
+                className="w-full bg-accent text-primary-foreground hover:bg-accent/90 disabled:opacity-50 font-bold text-lg px-6 py-4 rounded flex items-center justify-center gap-2 transition-colors"
               >
                 <Download size={24} />
-                Download Now
+                {downloading ? "Downloading..." : "Download Now"}
               </button>
               <p className="text-sm text-muted-foreground text-center mt-3">
                 The installer will guide you through the setup process
               </p>
             </div>
           </div>
-
-          {/* System Requirements */}
-          <div className="border border-border rounded-lg p-8 space-y-4">
-            <h2 style={{ fontFamily: "'Poppins', sans-serif" }} className="text-xl font-bold">
-              System Requirements
-            </h2>
-            <ul className="space-y-2 text-muted-foreground">
-              <li>• Windows 10 or later</li>
-              <li>• 100 MB free disk space</li>
-              <li>• Active internet connection</li>
-              <li>• Administrator privileges for installation</li>
-            </ul>
-          </div>
         </div>
       </section>
-
-      {/* Confirmation Dialog */}
-      {showConfirm && (
-        <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
-          <div className="bg-background border border-border rounded-lg p-8 max-w-md w-full space-y-6 shadow-xl">
-            <div className="space-y-2">
-              <h3 style={{ fontFamily: "'Poppins', sans-serif" }} className="text-2xl font-bold">
-                Ready to Download?
-              </h3>
-              <p className="text-muted-foreground">
-                You're about to download Cyber VPN for Windows. The file will start downloading to your default download folder.
-              </p>
-            </div>
-
-            <div className="bg-muted p-4 rounded space-y-2">
-              <p className="text-sm font-medium">File: {FILE_NAME}</p>
-              <p className="text-sm font-medium">Size: {FILE_SIZE}</p>
-            </div>
-
-            <div className="flex gap-3">
-              <button
-                onClick={() => setShowConfirm(false)}
-                className="flex-1 border border-border hover:bg-muted text-foreground font-medium px-4 py-2 rounded transition-colors"
-              >
-                Cancel
-              </button>
-              <button
-                onClick={handleDownload}
-                disabled={downloading}
-                className="flex-1 bg-accent text-primary-foreground hover:bg-accent/90 disabled:opacity-50 font-medium px-4 py-2 rounded transition-colors flex items-center justify-center gap-2"
-              >
-                <Download size={18} />
-                {downloading ? "Downloading..." : "Download"}
-              </button>
-            </div>
-          </div>
-        </div>
-      )}
     </div>
   );
 }
