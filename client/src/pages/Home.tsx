@@ -1,5 +1,6 @@
+import { useAuth } from "@/_core/hooks/useAuth";
 import { Button } from "@/components/ui/button";
-import { ChevronDown, Globe, Lock, Zap, Users, Shield, Smartphone, Download, Check, X } from "lucide-react";
+import { ChevronDown, Globe, Lock, Zap, Users, Shield, Smartphone } from "lucide-react";
 import { useState } from "react";
 
 /**
@@ -30,6 +31,10 @@ const CyberLogo = () => (
 );
 
 export default function Home() {
+  // The userAuth hooks provides authentication state
+  // To implement login/logout functionality, simply call logout() or redirect to getLoginUrl()
+  let { user, loading, error, isAuthenticated, logout } = useAuth();
+
   const [expandedFaq, setExpandedFaq] = useState<number | null>(0);
   const [downloadOpen, setDownloadOpen] = useState(false);
 

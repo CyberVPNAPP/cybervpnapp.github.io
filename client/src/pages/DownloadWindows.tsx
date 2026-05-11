@@ -1,6 +1,7 @@
 import { Download, ArrowLeft, CheckCircle, Shield, Zap } from "lucide-react";
 import { useState } from "react";
 import { useLocation } from "wouter";
+import { trpc } from "@/lib/trpc";
 
 /**
  * Windows Download Page - Simplified
@@ -11,20 +12,21 @@ export default function DownloadWindows() {
   const [, setLocation] = useLocation();
   const [downloading, setDownloading] = useState(false);
 
-  const DOWNLOAD_URL = "https://files.manuscdn.com/user_upload_by_module/session_file/310519663646168487/PfEpDyMMhKNdBphm.exe";
-  const FILE_NAME = "Cyber.exe";
-  const FILE_SIZE = "61 KB";
+  // Fetch download info from backend proxy
+  const { data: downloadInfo, isLoading } = trpc.download.windows.useQuery({ fileName: "Cyber VPN.exe" });
 
   const handleDownload = async () => {
+    if (!downloadInfo?.url) return;
+    
     setDownloading(true);
     try {
-      const response = await fetch(DOWNLOAD_URL);
+      const response = await fetch(downloadInfo.url);
       const blob = await response.blob();
       
       const blobUrl = window.URL.createObjectURL(blob);
       const link = document.createElement("a");
       link.href = blobUrl;
-      link.download = "Cyber VPN.exe";
+      link.download = downloadInfo.fileName;
       document.body.appendChild(link);
       link.click();
       document.body.removeChild(link);
@@ -80,11 +82,11 @@ export default function DownloadWindows() {
               <div className="space-y-3">
                 <div className="flex justify-between items-center pb-3 border-b border-border">
                   <span className="text-muted-foreground">File Name:</span>
-                  <span className="font-medium">{FILE_NAME}</span>
+                  <span className="font-medium">{downloadInfo?.fileName || "Cyber VPN.exe"}</span>
                 </div>
                 <div className="flex justify-between items-center pb-3 border-b border-border">
                   <span className="text-muted-foreground">File Size:</span>
-                  <span className="font-medium">{FILE_SIZE}</span>
+                  <span className="font-medium">{downloadInfo?.size || "61 KB"}</span>
                 </div>
                 <div className="flex justify-between items-center">
                   <span className="text-muted-foreground">Platform:</span>
@@ -97,11 +99,11 @@ export default function DownloadWindows() {
             <div className="pt-2">
               <button
                 onClick={handleDownload}
-                disabled={downloading}
+                disabled={downloading || isLoading || !downloadInfo}
                 className="w-full bg-accent text-primary-foreground hover:bg-accent/90 disabled:opacity-50 font-bold text-lg px-6 py-4 rounded flex items-center justify-center gap-2 transition-colors"
               >
                 <Download size={24} />
-                {downloading ? "Downloading..." : "Download Now"}
+                {isLoading ? "Loading..." : downloading ? "Downloading..." : "Download Now"}
               </button>
 
             </div>
