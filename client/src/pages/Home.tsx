@@ -100,12 +100,16 @@ export default function Home() {
             </p>
             
             <div className="flex flex-col sm:flex-row gap-4 justify-center pt-4">
-              <Button className="bg-accent text-primary-foreground hover:bg-accent/90 border border-accent font-semibold px-8 py-6 text-base">
-                GET ON PLAY STORE
-              </Button>
-              <Button className="bg-accent text-primary-foreground hover:bg-accent/90 border border-accent font-semibold px-8 py-6 text-base">
-                GET ON WINDOWS
-              </Button>
+              <a href="#play-store">
+                <Button className="bg-accent text-primary-foreground hover:bg-accent/90 border border-accent font-semibold px-8 py-6 text-base">
+                  GET ON PLAY STORE
+                </Button>
+              </a>
+              <a href="/download-windows">
+                <Button className="bg-accent text-primary-foreground hover:bg-accent/90 border border-accent font-semibold px-8 py-6 text-base">
+                  GET ON WINDOWS
+                </Button>
+              </a>
             </div>
           </div>
         </div>
