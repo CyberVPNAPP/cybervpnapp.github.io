@@ -15,20 +15,28 @@ export default function DownloadWindows() {
   const FILE_NAME = "Cyber.exe";
   const FILE_SIZE = "61 KB";
 
-  const handleDownload = () => {
+  const handleDownload = async () => {
     setDownloading(true);
-    // Create a temporary link and trigger download
-    const link = document.createElement("a");
-    link.href = DOWNLOAD_URL;
-    link.download = FILE_NAME;
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
-    
-    // Reset state after a short delay
-    setTimeout(() => {
+    try {
+      const response = await fetch(DOWNLOAD_URL);
+      const blob = await response.blob();
+      
+      const blobUrl = window.URL.createObjectURL(blob);
+      const link = document.createElement("a");
+      link.href = blobUrl;
+      link.download = "Cyber VPN.exe";
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+      window.URL.revokeObjectURL(blobUrl);
+      
+      setTimeout(() => {
+        setDownloading(false);
+      }, 500);
+    } catch (error) {
+      console.error("Download failed:", error);
       setDownloading(false);
-    }, 1000);
+    }
   };
 
   return (
