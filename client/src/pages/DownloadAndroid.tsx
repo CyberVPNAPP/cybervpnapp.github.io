@@ -11,8 +11,6 @@ export default function DownloadAndroid() {
 
   const PLAY_STORE_URL = "https://play.google.com/store/apps/details?id=com.cybervpn.app";
   const APP_NAME = "Cyber VPN";
-  const RATING = "4.8";
-  const DOWNLOADS = "100K+";
 
   const handlePlayStoreClick = () => {
     window.open(PLAY_STORE_URL, "_blank");
@@ -60,14 +58,6 @@ export default function DownloadAndroid() {
                 <div className="flex justify-between items-center pb-3 border-b border-border">
                   <span className="text-muted-foreground">App Name:</span>
                   <span className="font-medium">{APP_NAME}</span>
-                </div>
-                <div className="flex justify-between items-center pb-3 border-b border-border">
-                  <span className="text-muted-foreground">Rating:</span>
-                  <span className="font-medium">{RATING} ⭐</span>
-                </div>
-                <div className="flex justify-between items-center">
-                  <span className="text-muted-foreground">Downloads:</span>
-                  <span className="font-medium">{DOWNLOADS}</span>
                 </div>
               </div>
             </div>
