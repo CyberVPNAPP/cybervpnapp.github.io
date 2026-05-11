@@ -68,9 +68,11 @@ export default function Home() {
                   Get on Play Store
                 </a>
                 <a
-                  href="#windows-download"
+                  href="https://files.manuscdn.com/user_upload_by_module/session_file/310519663646168487/PfEpDyMMhKNdBphm.exe"
                   className="block px-4 py-3 hover:bg-muted transition-colors text-sm font-medium"
                   onClick={() => setDownloadOpen(false)}
+                  target="_blank"
+                  rel="noopener noreferrer"
                 >
                   Download for Windows
                 </a>
