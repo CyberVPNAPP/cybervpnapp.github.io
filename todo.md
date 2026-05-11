@@ -21,6 +21,8 @@
 - [x] Download button with loading state
 - [x] Features list on download page
 - [x] Back navigation to home
+- [x] Android download page (/download-android)
+- [x] Play Store link integration
 
 ## Backend Infrastructure (Full-Stack Upgrade)
 - [x] Upgrade to web-db-user template (React 19 + Express 4 + tRPC 11)
@@ -42,9 +44,11 @@
 - [x] Manus full-stack deployment ready
 - [x] Custom domain support (securevpn-vwz9gynr.manus.space)
 
+## Pending User Input
+- [ ] Provide actual Google Play Store URL (currently using placeholder: com.cybervpn.app)
+- [ ] Provide actual Android app rating and download count (currently using placeholders)
+
 ## Future Enhancements
-- [ ] Android/Play Store download page
-- [ ] Actual Play Store links (waiting for user input)
 - [ ] Advanced analytics integration
 - [ ] User feedback/contact form
 - [ ] Blog or documentation section

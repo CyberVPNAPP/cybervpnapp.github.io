@@ -8,6 +8,7 @@ import Home from "./pages/Home";
 import PrivacyPolicy from "./pages/PrivacyPolicy";
 import Terms from "./pages/Terms";
 import DownloadWindows from "./pages/DownloadWindows";
+import DownloadAndroid from "./pages/DownloadAndroid";
 
 function Router() {
   // make sure to consider if you need authentication for certain routes
@@ -15,6 +16,7 @@ function Router() {
     <Switch>
       <Route path={"/"} component={Home} />
       <Route path={"/download-windows"} component={DownloadWindows} />
+      <Route path={"/download-android"} component={DownloadAndroid} />
       <Route path={"/privacy"} component={PrivacyPolicy} />
       <Route path={"/terms"} component={Terms} />
       <Route path={"/404"} component={NotFound} />

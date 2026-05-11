@@ -66,7 +66,7 @@ export default function Home() {
             {downloadOpen && (
               <div className="absolute right-0 mt-2 w-48 bg-background border border-border rounded shadow-lg z-50">
                 <a
-                  href="#play-store"
+                  href="/download-android"
                   className="block px-4 py-3 hover:bg-muted transition-colors text-sm font-medium border-b border-border"
                   onClick={() => setDownloadOpen(false)}
                 >
@@ -105,7 +105,7 @@ export default function Home() {
             </p>
             
             <div className="flex flex-col sm:flex-row gap-4 justify-center pt-4">
-              <a href="#play-store">
+              <a href="/download-android">
                 <Button className="bg-accent text-primary-foreground hover:bg-accent/90 border border-accent font-semibold px-8 py-6 text-base">
                   GET ON PLAY STORE
                 </Button>
@@ -274,12 +274,16 @@ export default function Home() {
             Join thousands of users who trust CyberVPN for their online security and privacy. Download now — it's completely free.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Button className="bg-accent text-primary-foreground hover:bg-accent/90 border border-accent font-semibold px-12 py-6 text-lg">
-              GET ON PLAY STORE
-            </Button>
-            <Button className="bg-accent text-primary-foreground hover:bg-accent/90 border border-accent font-semibold px-12 py-6 text-lg">
-              GET ON WINDOWS
-            </Button>
+            <a href="/download-android">
+              <Button className="bg-accent text-primary-foreground hover:bg-accent/90 border border-accent font-semibold px-12 py-6 text-lg">
+                GET ON PLAY STORE
+              </Button>
+            </a>
+            <a href="/download-windows">
+              <Button className="bg-accent text-primary-foreground hover:bg-accent/90 border border-accent font-semibold px-12 py-6 text-lg">
+                GET ON WINDOWS
+              </Button>
+            </a>
           </div>
         </div>
       </section>
