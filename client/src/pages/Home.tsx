@@ -210,7 +210,7 @@ export default function Home() {
 
       {/* FAQ Section */}
       <section id="faq" className="py-24 bg-card">
-        <div className="container max-w-3xl">
+        <div className="container max-w-3xl mx-auto px-4">
           <div className="text-center mb-16">
             <h2 style={{ fontFamily: "'Poppins', sans-serif" }} className="text-4xl md:text-5xl font-bold mb-4">FREQUENTLY ASKED</h2>
             <div className="w-16 h-1 bg-accent mx-auto"></div>
