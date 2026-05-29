@@ -318,6 +318,7 @@ export default function Home() {
               <ul className="space-y-2 text-sm text-muted-foreground">
                 <li><a href="/privacy" className="hover:text-accent transition-colors">Privacy Policy</a></li>
                 <li><a href="/terms" className="hover:text-accent transition-colors">Terms</a></li>
+                <li><a href="/delete-account.html" className="hover:text-accent transition-colors">Account Deletion</a></li>
               </ul>
             </div>
           </div>
