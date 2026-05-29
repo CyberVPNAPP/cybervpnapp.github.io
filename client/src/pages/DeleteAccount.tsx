@@ -31,26 +31,15 @@ export default function DeleteAccount() {
 
           <Card className="border-2 border-accent/20">
             <CardHeader>
-              <CardTitle style={{ fontFamily: "'Poppins', sans-serif" }}>How to Delete Your Account</CardTitle>
+              <CardTitle style={{ fontFamily: "'Poppins', sans-serif" }}>How to Request Deletion</CardTitle>
               <CardDescription>Follow these steps to permanently remove your data</CardDescription>
             </CardHeader>
             <CardContent className="space-y-4">
               <div className="space-y-2">
-                <h3 className="font-bold text-foreground">Option 1: In-App Deletion</h3>
                 <p className="text-sm text-muted-foreground">
-                  1. Open the Cyber VPN app on your Android device.<br />
-                  2. Go to <strong>Settings</strong> or <strong>Profile</strong>.<br />
-                  3. Select <strong>Delete Account</strong>.<br />
-                  4. Confirm your choice. Your data will be removed immediately.
+                  To request account deletion, please email us from the email address associated with your account. Our support team will process your request and confirm once your data has been permanently removed.
                 </p>
-              </div>
-              
-              <div className="space-y-2 pt-4 border-t border-border">
-                <h3 className="font-bold text-foreground">Option 2: Email Request</h3>
-                <p className="text-sm text-muted-foreground">
-                  If you cannot access the app, you can request account deletion by emailing us from the email address associated with your account.
-                </p>
-                <div className="pt-2">
+                <div className="pt-4">
                   <Button asChild className="bg-accent text-accent-foreground hover:bg-accent/90">
                     <a href="mailto:cybervpnapp@gmail.com?subject=Account Deletion Request">
                       Email cybervpnapp@gmail.com
