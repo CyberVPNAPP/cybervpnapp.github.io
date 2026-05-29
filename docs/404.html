@@ -4,13 +4,18 @@
     <meta charset="utf-8">
     <title>Cyber. VPN</title>
     <script type="text/javascript">
+      // This 404.html script is used to handle Single Page Application (SPA) routing on GitHub Pages.
+      // It captures the current path and redirects to index.html, where the router will handle it.
       (function() {
-        var l = window.location;
-        sessionStorage.redirect = l.pathname + l.search + l.hash;
-        l.replace(
-          l.protocol + '//' + l.hostname + (l.port ? ':' + l.port : '') +
-          l.pathname.split('/').slice(0, -1).join('/') + '/index.html'
-        );
+        var path = window.location.pathname;
+        var search = window.location.search;
+        var hash = window.location.hash;
+
+        // Save the intended path in sessionStorage so index.html can retrieve it
+        sessionStorage.redirect = path + search + hash;
+
+        // Redirect to the root index.html
+        window.location.replace('/');
       })();
     </script>
   </head>
